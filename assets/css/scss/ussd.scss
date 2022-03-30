@@ -1,0 +1,38 @@
+$sitedark: #024e5a;
+* {
+    color: #202124;
+    font-family: roboto,'Noto Sans Myanmar UI',arial,sans-serif;
+}
+.preloader {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 9999;
+   background-image: url('assets/img/spinner.gif');
+   background-repeat: no-repeat; 
+   background-color: #FFF;
+   background-position: center;
+}
+  .vms-btn {
+    background-color: $sitedark;
+    color: whitesmoke;
+    transition: ease-in 0.4s all;
+}
+.vms-btn:hover {
+    background-color: $sitedark;
+    color: whitesmoke;
+}
+
+.vms-btn:focus {
+    background-color: $sitedark;
+    color: whitesmoke;
+}
+
+.btn-success {
+    background-color: $sitedark;
+}
+.text-dark {
+    color: $sitedark;
+}

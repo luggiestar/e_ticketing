@@ -42,6 +42,9 @@
 					else if($user_data['type'] == "manager"){
 						header("location:../manager-dashboard");
 					}
+					else if($user_data['type'] == "driver"){
+						header("location:../driver-dashboard");
+					}
 					else {
 						$error ="Account does not exist";
 						$_SESSION['error'] = $error;

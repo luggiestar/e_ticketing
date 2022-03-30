@@ -5,16 +5,9 @@
     $user_detail_q = $dbconnect->prepare($user_detail);
     $user_detail_q->execute(['user_id'=>$_SESSION['UserID']]);
     $user_profile = $user_detail_q->fetch(); 
-
-
-    /*Wallet Detail*/
-        $wallet_sql = "SELECT * FROM tbl_user, tbl_wallet WHERE tbl_wallet.passenger = tbl_user.id AND tbl_wallet.passenger = :user_id";
-        $wallet_query = $dbconnect->prepare($wallet_sql);
-        $wallet_query->execute(['user_id'=>$_SESSION['UserID']]);
-        $wallet_rows = $wallet_query->rowCount();
-        $wallet_detail = $wallet_query->fetch(); 
-    /*end of wallet detail */
 ?>
+
+<?php require_once("driver-access.php") ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,25 +75,27 @@
             </li>
 
             <!-- Divider -->
-            <?php if($wallet_rows == 1): ?>
-            <hr class="sidebar-divider">
+        
+            <!-- <hr class="sidebar-divider"> -->
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Component"
                     aria-expanded="true" aria-controls="Component">
                     <i class="fas fa-fw fa-bus"></i>
-                    <span> Booking </span>
+                    <span> Routes and Buses </span>
                 </a>
                 <div id="Component" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Booking Management:</h6>
-                        <a class="collapse-item" href="booking-history.php"> 
-                            <i class="fa fa-book text-info"></i> Booking History
+                        <h6 class="collapse-header">Route And Buses:</h6>
+                        <a class="collapse-item" href="route-list.php"> 
+                            <i class="fa fa-map-marker text-info"></i> Route List
+                        </a>
+                        <a class="collapse-item" href="list-buses.php"> 
+                            <i class="fa fa-bus text-info"></i> Buses List
                         </a>
                     </div>
                 </div>
-            </li>
-            <?php endif ?>
+            </li> -->
 
             <hr class="sidebar-divider">
             <li class="nav-item">

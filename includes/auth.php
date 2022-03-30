@@ -39,7 +39,7 @@
 					if($user_data['type'] == "passenger") {
 						header("location:../user-dashboard");
 					}
-					else if($user_data['type'] == "manager"){
+					else if($user_data['type'] == "manager" || $user_data['type'] == "admin"){
 						header("location:../manager-dashboard");
 					}
 					else if($user_data['type'] == "driver"){

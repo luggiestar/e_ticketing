@@ -17,7 +17,6 @@
 
 <div class="main_container">
     <?php include('includes/messages.php') ?>
-    <?php if($wallet_rows == 1): ?>
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="card card-body">
@@ -54,12 +53,6 @@
                 </div>
             </div>
         </div>
-    <?php else: ?>
-        <div class="info">
-            You can't do anything on the system untill you generate wallet and debit it;
-        </div>
-        <a href="wallet-generate.php?key=generateWallet" class="btn btn-info">Generate wallet</a>
-    <?php endif?>
 </div>
 <?php include('includes/footer.php'); ?>
 

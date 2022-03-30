@@ -90,79 +90,86 @@
 		$licence_no = $_POST['licence_no'];
 		$bus = $_POST['bus'];
 		$username = clean_input($_POST['username']);
-	
-		$password = password_hash($last_name, PASSWORD_DEFAULT);
 
-		//array that hold user data
-		$user_data = [
-		  	'fname'=>strtolower(ucfirst($first_name)), 
-		  	'lname'=>strtolower(ucfirst($last_name)), 
-		  	'phone'=>$phone, 
-		  	'sex'=>$sex, 
-		  	'region'=>strtolower(ucfirst($region)), 
-		  	'district'=>strtolower(ucfirst($district)), 
-		  	'address'=>$address,
-		  	'type'=>$type, 
-		  	'username'=>$username, 
-		  	'password'=>$password
-		];
+		if(!preg_match("/^255+[67]+[12345678]+[1-9]/", $phone)) {
+			$_SESSION['error'] = "Required format is 255762506012 must start with 255 the 7 0r six";
+			header("location:driver.php");
+		}
 
-    try {
+		else {
+			$password = password_hash($last_name, PASSWORD_DEFAULT);
 
-      $sql = "INSERT INTO tbl_user (fname, lname, phone, sex, region, district, address, type, username, password) 
-              VALUES (:fname, :lname, :phone, :sex, :region, :district, :address, :type, :username, :password)";
-      $stmt = $dbconnect->prepare($sql);
-      $stmt->execute($user_data);
-      $driver_id = $dbconnect->lastInsertId();
+			//array that hold user data
+			$user_data = [
+				'fname'=>strtolower(ucfirst($first_name)), 
+				'lname'=>strtolower(ucfirst($last_name)), 
+				'phone'=>$phone, 
+				'sex'=>$sex, 
+				'region'=>strtolower(ucfirst($region)), 
+				'district'=>strtolower(ucfirst($district)), 
+				'address'=>$address,
+				'type'=>$type, 
+				'username'=>$username, 
+				'password'=>$password
+			];
 
-     	if($stmt) {
+			try {
 
-     		//array that hold driver data
-     		$driver_data = [
-					'licence_no'=>$licence_no,
-					'bus'=>$bus,
-					'user'=>$driver_id 
-				];
+				$sql = "INSERT INTO tbl_user (fname, lname, phone, sex, region, district, address, type, username, password) 
+				VALUES (:fname, :lname, :phone, :sex, :region, :district, :address, :type, :username, :password)";
+				$stmt = $dbconnect->prepare($sql);
+				$stmt->execute($user_data);
+				$driver_id = $dbconnect->lastInsertId();
 
-				//save driver detail
-     		$save_driver_sql = "INSERT INTO tbl_driver(licence_no, bus, user) VALUES(:licence_no, :bus, :user)";
-				$save_driver_stmt = $dbconnect->prepare($save_driver_sql);
-      	$save_driver_stmt->execute($driver_data);
+				if($stmt) {
 
-      	if($save_driver_stmt) {
+					//array that hold driver data
+					$driver_data = [
+						'licence_no'=>$licence_no,
+						'bus'=>$bus,
+						'user'=>$driver_id 
+					];
 
-      		//set bus as taken
-      		$update_bus = $dbconnect->prepare("UPDATE tbl_bus SET taken=1 WHERE bus_id = :bus_id");
-      		$update_bus->execute(['bus_id'=>$bus]);
+					//save driver detail
+					$save_driver_sql = "INSERT INTO tbl_driver(licence_no, bus, user) VALUES(:licence_no, :bus, :user)";
+					$save_driver_stmt = $dbconnect->prepare($save_driver_sql);
+					$save_driver_stmt->execute($driver_data);
 
-      		//redirct user to drivers pages
+					if($save_driver_stmt) {
+
+					//set bus as taken
+					$update_bus = $dbconnect->prepare("UPDATE tbl_bus SET taken=1 WHERE bus_id = :bus_id");
+					$update_bus->execute(['bus_id'=>$bus]);
+
+					//redirct user to drivers pages
 					$_SESSION['success'] = "Account for $first_name $last_name created successfully";
-					header("location:driver.php");
+						header("location:driver.php");
+					}
+
+					else {
+						//redirct user to drivers pages
+						$error ="Driver not saved";
+						$_SESSION['error'] = $error;
+						header("location:driver.php");
+					}
 				}
 
 				else {
 					//redirct user to drivers pages
-					$error ="Driver not saved";
+					$error ="User not saved successfully";
 					$_SESSION['error'] = $error;
 					header("location:driver.php");
 				}
 			}
 
-			else {
+			catch(Exception $e) {
 				//redirct user to drivers pages
-				$error ="User not saved successfully";
-				$_SESSION['error'] = $error;
+				$warning = "System Error please contact System admin";
+				$_SESSION['warning'] = $warning; 
 				header("location:driver.php");
+				echo 'phone and username';
 			}
-    }
-
-   	catch(Exception $e) {
-   		//redirct user to drivers pages
-     	$warning = "System Error please contact System admin";
-     	$_SESSION['warning'] = $warning; 
-     	header("location:driver.php");
-     	echo 'phone and username';
-   	}
+		}
 	}
 
 ?>

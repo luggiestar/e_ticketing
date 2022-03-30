@@ -4,7 +4,6 @@
 
 <div class="main_container">
     <?php include('includes/messages.php') ?>
-    <?php if($wallet_rows == 1): ?>
         <div class="row justify-content-center">
             <div class="col-xl-10 pb-3">
                 <div class="card">
@@ -52,7 +51,6 @@
                 </div>
             </div>
         </div>
-    <?php endif?>
 </div>
 <?php include('includes/footer.php'); ?>
 

@@ -26,35 +26,42 @@
 		$capacity = $_POST['capacity'];
 		$route = $_POST['route'];
 
-		$data = [
-		  	'plate_no'=>strtolower(ucfirst($plate_no)), 
-		  	'capacity'=>strtolower(ucfirst($capacity)), 
-		  	'route'=>$route
-		];
-
-
-		try {
-			$save_bus_sql = "INSERT INTO tbl_bus (plate_no, capacity, route) VALUES(:plate_no, :capacity, :route)";
-			$save_bus_stmt = $dbconnect->prepare($save_bus_sql);
-      		$save_bus_stmt->execute($data);
-
-      		if($save_bus_stmt) {
-      			$_SESSION['success'] = "Bus saved successfully";
-				header("location:buses.php");
-      		}
-
-      		else {
-      			$_SESSION['error'] = "Bus not saved successfully";
-				header("location:buses.php");
-      		}
-		}
-
-		catch(Exception $e) {
-			$_SESSION['error'] = "$e";
+		if(!preg_match("/^T+[ 0-9]+[ A-Z]/", $plate_no)) {
+			$_SESSION['error'] = "Invalid plate number allowed format T 232 ABC";
 			header("location:buses.php");
-			echo $e;
 		}
-		
+
+		else {
+
+			$data = [
+				'plate_no'=>strtoupper(ucfirst($plate_no)), 
+				'capacity'=>($capacity), 
+				'route'=>$route
+			];
+
+
+			try {
+				$save_bus_sql = "INSERT INTO tbl_bus (plate_no, capacity, route) VALUES(:plate_no, :capacity, :route)";
+				$save_bus_stmt = $dbconnect->prepare($save_bus_sql);
+				$save_bus_stmt->execute($data);
+
+				if($save_bus_stmt) {
+					$_SESSION['success'] = "Bus saved successfully";
+					header("location:buses.php");
+				}
+
+				else {
+					$_SESSION['error'] = "Bus not saved successfully";
+					header("location:buses.php");
+				}
+			}
+
+			catch(Exception $e) {
+				$_SESSION['error'] = "$e";
+				header("location:buses.php");
+				echo $e;
+			}
+		}
 	}
 
 	else {

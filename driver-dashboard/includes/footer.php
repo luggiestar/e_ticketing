@@ -53,7 +53,7 @@
     <script src="../app_assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="j../app_assets/s/kvm.js"></script>
+    <script src="../app_assets/js/kvm.js"></script>
 
     <!-- Page level plugins -->
     <script src="../app_assets/vendor/datatables/jquery.dataTables.min.js"></script>

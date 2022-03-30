@@ -51,7 +51,6 @@
 
 <div class="main_container"> 
     <?php include('includes/messages.php') ?>
-    <?php if($wallet_rows == 1): ?>   
     <div class="row justify-content-center">
         <div class="col-xl-8 col-md-8 col-xs-12 wow fadeIn login-form-mobile card card-body" id="registration-card"> 
             <div class="bg-white pb-1">
@@ -114,6 +113,5 @@
             </form>
         </div>
     </div>
-    <?php endif?>
 </div>
 <?php include('includes/footer.php'); ?>

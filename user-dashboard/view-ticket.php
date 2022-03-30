@@ -2,7 +2,7 @@
 <?php require_once('../includes/mustlogin.php') ?>
 <link href="css/brt.css" rel="stylesheet">
 
-<?php if(!isset($_POST['ticket_id'])) { header("location: booking.php"); } ?>
+<?php if(!isset($_POST['ticket_id'])) { header("location: ../logout.php"); } ?>
 
 	<?php	
 		$ticket_sql = "SELECT tbl_user.fname, tbl_user.lname, tbl_user.phone, tbl_ticket.*, tbl_route.* FROM tbl_route, tbl_ticket, tbl_user 

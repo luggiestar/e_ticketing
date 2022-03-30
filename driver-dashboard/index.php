@@ -1,82 +1,51 @@
-<?php $title = "User-dashboard" ?>
+<?php $title = "Driver-dashboard" ?>
 
 <?php include('includes/sidebar.php'); ?>
+<?php
 
+    $driver_route_sql = "SELECT * FROM tbl_user, tbl_route, tbl_bus, tbl_driver
+    WHERE tbl_driver.user = tbl_user.id
+    AND tbl_driver.bus = tbl_bus.bus_id
+    AND tbl_bus.route = tbl_route.route_id
+    AND tbl_user.id = :user";
+    $driver_route_stmt = $dbconnect->prepare($driver_route_sql);
+    $driver_route_stmt->execute(['user'=>$_SESSION['UserID']]);
+    $d_detail = $driver_route_stmt->fetch();
+
+?>
 <div class="main_container">
     <?php include('includes/messages.php') ?>
-    <?php if($wallet_rows == 1): ?>
         <div class="row">
-            <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
+            <div class="col-xl-12 col-md-12 mb-4">
+                <div class="card border-left- shadow h-100 py-2">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Wallet Balance</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <span class="count">
-                                       <?php echo $wallet_detail['balance'] ?>
-                                    </span>
+                        <div class="row">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="hadow-sm text-danger">
+                                    <h6 class="text-center">Any Time Route May Change Please be close with this device and your mobile phone the change 
+                                    of Routes is addressed on this two devices.
+                                    </h6>
                                 </div>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-money fa-2x text-gray-300"></i>
+                            <div class="col-md-4 col-xl-4">
+                                <h5 class="text-center"><strong> Driver Name </strong> </h5>
+                                <h6 class="text-center"> <?php echo strtoupper($d_detail['lname']).' '.strtoupper($d_detail['fname']) ?> </h6>
+                                <p class="text-center text-white"><span class="badge bg-info">active | yes</span></p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        
-            <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Wallet Number</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                   <span class="count"><?php echo $wallet_detail['wallet_number'] ?></span>
-                                </div>
+                            <div class="col-md-4 col-xl-4">
+                                <h5 class="text-center"><strong> Drive Car </strong> </h5>
+                                <h6 class="text-center"><?php echo $d_detail['plate_no'] ?> </h6>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-users fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Available Route
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> 
-                                            <span class="count"> 120</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-user fa-2x text-gray-300"></i>
+                            <div class="col-md-4 col-xl-4">
+                                <h5 class="text-center"><strong> Current Route </strong> </h5>
+                                <h6 class="text-center"><?php echo strtoupper($d_detail['origin']).' - '.strtoupper($d_detail['destination']) ?> </h6>
+                                <p class="text-center text-white"><span class="badge bg-info">active | yes</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <?php else: ?>
-        <div class="info">
-            You can't do anything on the system untill you generate wallet and debit it;
-        </div>
-        <a href="wallet-generate.php?key=generateWallet" class="btn btn-info">Generate wallet</a>
-    <?php endif?>
 </div>
 <?php include('includes/footer.php'); ?>
 <script type="text/javascript">

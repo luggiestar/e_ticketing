@@ -74,44 +74,50 @@
 		$district = clean_input($_POST['district']);
 		$address = $_POST['address'];
 		$username = clean_input($_POST['username']);
-	
-		$password = password_hash($last_name, PASSWORD_DEFAULT);
+		
+		if(!preg_match("/^255+[67]+[12345678]+[1-9]/", $phone)) {
+			$_SESSION['error'] = "Required format is 255762506012 must start with 255 the 7 0r six";
+			header("location:driver.php");
+		}
+		else {
+			$password = password_hash($last_name, PASSWORD_DEFAULT);
 
-		$data = [
-		  	'fname'=>strtolower(ucfirst($first_name)), 
-		  	'lname'=>strtolower(ucfirst($last_name)), 
-		  	'phone'=>$phone, 
-		  	'sex'=>$sex, 
-		  	'region'=>strtolower(ucfirst($region)), 
-		  	'district'=>strtolower(ucfirst($district)), 
-		  	'address'=>$address,
-		  	'type'=>$type, 
-		  	'username'=>$username, 
-		  	'password'=>$password
-		];
-    try {
-      $sql = "INSERT INTO tbl_user (fname, lname, phone, sex, region, district, address, type, username, password) 
-              VALUES (:fname, :lname, :phone, :sex, :region, :district, :address, :type, :username, :password)";
-      $stmt = $dbconnect->prepare($sql);
-      $stmt->execute($data);
-     	if($stmt) {
-				$_SESSION['success'] = "Account for $first_name $last_name created successfully";
-				header("location:user.php");
+			$data = [
+				'fname'=>strtolower(ucfirst($first_name)), 
+				'lname'=>strtolower(ucfirst($last_name)), 
+				'phone'=>$phone, 
+				'sex'=>$sex, 
+				'region'=>strtolower(ucfirst($region)), 
+				'district'=>strtolower(ucfirst($district)), 
+				'address'=>$address,
+				'type'=>$type, 
+				'username'=>$username, 
+				'password'=>$password
+			];
+			try {
+				$sql = "INSERT INTO tbl_user (fname, lname, phone, sex, region, district, address, type, username, password) 
+					VALUES (:fname, :lname, :phone, :sex, :region, :district, :address, :type, :username, :password)";
+				$stmt = $dbconnect->prepare($sql);
+				$stmt->execute($data);
+				
+				if($stmt) {
+					$_SESSION['success'] = "Account for $first_name $last_name created successfully";
+					header("location:user.php");
+				}
+
+				else {
+					$error ="Something Went wrong try again";
+					$_SESSION['error'] = $error;
+					header("location:user.php");
+				}
 			}
 
-			else {
-				$error ="Something Went wrong try again";
-				$_SESSION['error'] = $error;
+			catch(Exception $e) {
+				$_SESSION['danger'] = "Invalid data phone number or username is already registred";
 				header("location:user.php");
+				echo 'phone and username';
 			}
-    }
-
-   	catch(Exception $e) {
-
-     	$_SESSION['danger'] = "Invalid data phone number or username is already registred";
-     	header("location:user.php");
-     	echo 'phone and username';
-   	}
+		}
 	}
 	else {
 		//if user has no access to this file

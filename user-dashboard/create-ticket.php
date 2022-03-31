@@ -15,15 +15,15 @@
 		$route = $_POST['route'];
 		$starting = $_POST['starting'];
 		$ending = $_POST['ending'];
-		$trip_time = $_POST['trip_time'];
-		$date = date('Y-m-d', strtotime($_POST['date']));
+		
 
 		//get current date
-		$current_date = date('Y-m-d');
+		$trip_time =  date('H:i:s');
+		$date = date('Y-m-d');
 
 		/* Time calculation */
-		$timestamp = strtotime($trip_time) + 60*60*2;//add two hour on time
-		$expire_time = date('H:i', $timestamp); 
+		$expire_time = strtotime($trip_time) + 60*60*2;//add two hour on time
+		$expire_time = date('H:i', $expire_time); 
 
 		$ticket_number = rand(999999, 9999999);
 		$passanger = $_SESSION['UserID'];

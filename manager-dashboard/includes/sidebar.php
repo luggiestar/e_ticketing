@@ -5,6 +5,10 @@
     $user_detail_q = $dbconnect->prepare($user_detail);
     $user_detail_q->execute(['user_id'=>$_SESSION['UserID']]);
     $user_profile = $user_detail_q->fetch(); 
+
+    if($user_profile['type'] != "admin" && $user_profile['type'] != "manager") {
+        echo "<script> window.location='../logout.php' </script>";
+    }
 ?>
 <?php include('manager_admin_access.php') ?>
 <!DOCTYPE html>
@@ -79,12 +83,12 @@
             <hr class="sidebar-divider">
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Component"
-                    aria-expanded="true" aria-controls="Component">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user"
+                    aria-expanded="true" aria-controls="user">
                     <i class="fas fa-fw fa-users"></i>
                     <span> Users </span>
                 </a>
-                <div id="Component" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div id="user" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">User Management:</h6>
                         <?php if($user_profile['type'] == "admin"): ?>
@@ -104,20 +108,42 @@
             
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="route.php">
-                    <i class="fa fa-exchange"></i>
-                    <span> Route </span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#routeBus"
+                    aria-expanded="true" aria-controls="routeBus">
+                    <i class="fa fa-fw fa-exchange"></i>
+                    <span> Route and Bus </span>
                 </a>
-            </li>
-            
-            <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link" href="buses.php">
-                    <i class="fas fa-fw fa-bus"></i>
-                    <span> Buses </span>
-                </a>
+                <div id="routeBus" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Route and Bus Management:</h6>
+                        <a class="collapse-item" href="route.php"> 
+                            <i class="fa fa-exchange text-info"></i> Route
+                        </a>
+                        <a class="collapse-item" href="buses.php"> 
+                            <i class="fa fa-bus text-info"></i> Buses
+                        </a>
+                    </div>
+                </div>
             </li>
 
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ticket"
+                    aria-expanded="true" aria-controls="ticket">
+                    <i class="fas fa-fw fa-id-card"></i>
+                    <span> Tickets </span>
+                </a>
+                <div id="ticket" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Ticket Management:</h6>
+                        <a class="collapse-item" href="ticket-manager.php"> 
+                            <i class="fa fa-id-card text-info"></i> Today Ticket
+                        </a>
+                     
+                    </div>
+                </div>
+            </li>
+        
             <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link" href="comment.php">

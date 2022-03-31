@@ -21,7 +21,7 @@
 
 ?>
 
-<script src="vendor/jquery/jquery.min.js"></script>
+<script src="../app_assets/vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
     // $('body').hide();
@@ -78,11 +78,11 @@ $(document).ready(function(){
                             <tbody>
                                 <?php $sn = 1; foreach($ticket_list as $ticket_item): ?>
                                     <?php
-                                        $ticket_time = strtotime($ticket_item['trip_time']);
-                                        $now_time = strtotime(date('H:i:s', time()+60*60*2));
+                                        $ticket_time = date('H:i:s a', strtotime($ticket_item['trip_time']));
+                                        $now_time = date('H:i:s');
                                         $today_date = date('Y-m-d');
                                         $trip_date = $ticket_item['trip_date'];
-                                        $expire_time = strtotime($ticket_item['expire_time']);
+                                        $expire_time = $ticket_item['expire_time'];
 
                                     ?>
                                     <tr>
@@ -90,11 +90,11 @@ $(document).ready(function(){
                                         <td><?php echo $ticket_item['ticket_number'] ?></td>
                                         <td><?php echo "$ticket_item[origin] $ticket_item[destination]" ?></td>
                                         <td>
-                                            <span class="badge bg-danger text-white"><?php echo "$ticket_item[trip_date] $ticket_item[expire_time] "?></span>
+                                            <span class="badge bg-danger text-white"><?php echo "$ticket_item[expire_time]"?></span>
                                         </td>
                                         <td><?php echo $ticket_item['price'] ?></td>
                                         <td>
-                                            <?php if($ticket_time <= $now_time && $now_time <= $expire_time && $trip_date == $today_date): ?>
+                                            <?php if($ticket_time <= $now_time && $expire_time > $now_time && $trip_date == $today_date): ?>
                                                 <span class="badge bg-success text-white" >Ticket valid</span>
                                             <?php else: ?>
                                                 <span class="badge bg-danger text-white" >Invalid</span>
@@ -135,7 +135,12 @@ $(document).ready(function(){
             </div>
             <form action="create-ticket.php" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
-                   
+                    <div class="d-flex mt-3">
+                        <div class="col-xl-12">
+                            <label><b>Trip Time <?php echo date('H:i').' '.date('a') ?></b></label>
+                            <label><b> <?php echo date('Y-m-d').' '.date('F') ?></b></label>
+                        </div>
+                    </div>
                     <div class="row mt-1">
                         <div class="col-xl-12">
                             <select name="route" class="form-control" id="route">
@@ -168,18 +173,6 @@ $(document).ready(function(){
                             <select name="ending" class="form-control station">
                                 <option value="">Select Route first</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-xl-12">
-                            <label><b>Trip Time</b></label>
-                            <input type="time" name="trip_time" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-xl-12">
-                            <label><b>Trip Date</b></label>
-                            <input type="date" name="date" class="form-control">
                         </div>
                     </div>
                 </div>

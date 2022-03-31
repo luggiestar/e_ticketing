@@ -6,7 +6,9 @@
     $user_detail_q->execute(['user_id'=>$_SESSION['UserID']]);
     $user_profile = $user_detail_q->fetch(); 
 
-
+    if($user_profile['type'] != "passenger") {
+        echo "<script> window.location='../logout.php' </script>";
+    }
     /*Wallet Detail*/
         $wallet_sql = "SELECT * FROM tbl_user, tbl_wallet WHERE tbl_wallet.passenger = tbl_user.id AND tbl_wallet.passenger = :user_id";
         $wallet_query = $dbconnect->prepare($wallet_sql);

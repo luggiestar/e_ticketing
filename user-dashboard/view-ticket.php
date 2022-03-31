@@ -1,6 +1,6 @@
 <?php require_once('../includes/config.php') ?>
 <?php require_once('../includes/mustlogin.php') ?>
-<link href="css/brt.css" rel="stylesheet">
+<link href="../app_assets/css/brt.css" rel="stylesheet">
 
 <?php if(!isset($_POST['ticket_id'])) { header("location: ../logout.php"); } ?>
 
@@ -16,8 +16,8 @@
 	    $ticket_detail = $ticket_query->fetch();
 
 	          
-        $ticket_time = strtotime($ticket_detail['trip_time']);
-        $now_time = strtotime(date('H:i:s', time()+60*60*2));
+        $ticket_time = $ticket_detail['trip_time'];
+        $now_time = date('H:i:s');
         $today_date = date('Y-m-d');
         $trip_date = $ticket_detail['trip_date'];
         $expire_time = strtotime($ticket_detail['expire_time']);
@@ -59,7 +59,11 @@
 							</tr>
 							<tr>
 								<th>Date</th>
-								<td><?php echo date('d-m-Y', strtotime($ticket_detail['trip_date']) )?></td>
+								<td><?php echo date('d-m-Y', strtotime($ticket_detail['trip_date']))?></td>
+							</tr>
+							<tr>
+							<th>Valid From</th>
+								<td><?php echo date('H:i:s a', strtotime($ticket_detail['trip_time']))?></td>
 							</tr>
 							<tr>
 								<th>Expired Time</th>
@@ -68,7 +72,7 @@
 							<tr>
 								<th>Status</th>
 								<td>
-								   	<?php if($ticket_time <= $now_time && $now_time <= $expire_time && $trip_date == $today_date): ?>
+								   	<?php if($ticket_time <= $now_time && $ticket_time < $expire_time && $trip_date == $today_date): ?>
                                         <span class="badge bg-success text-white" >Ticket Valid</span>
                                 
                                     <?php else: ?>

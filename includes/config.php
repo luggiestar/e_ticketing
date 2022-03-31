@@ -5,6 +5,9 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);  
 
+	// time zone setups 
+	date_default_timezone_set("Africa/Dar_es_Salaam");
+
 	/* online */
 	/*
 	define('DB_HOST', 'localhost');

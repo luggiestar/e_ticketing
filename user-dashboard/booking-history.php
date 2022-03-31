@@ -197,7 +197,7 @@ $(document).ready(function(){
                 <div class="modal-body">
                     <div class="row mt-1">
                         <div class="col-xl-12">
-                            <input type="number" name="wallet_number" class="form-control" placeholder="Enter Wallet Number">
+                            <input type="number" readonly value=<?php echo $wallet_detail['wallet_number'] ?> name="wallet_number" class="form-control" placeholder="Enter Wallet Number">
                         </div>
                     </div>
                     <div class="row mt-1">

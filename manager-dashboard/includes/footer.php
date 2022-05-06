@@ -64,14 +64,14 @@
 
     <script type="text/javascript">
     
-$(document).ready(function() {
-    $(".alert").hide();
-  
-    $(".alert").fadeTo(5000, 1000).slideUp(1000, function() {
-        $(".alert").slideUp(1000);
-    });
-});
-</script>
+        $(document).ready(function() {
+            $(".alert").hide();
+        
+            $(".alert").fadeTo(5000, 1000).slideUp(1000, function() {
+                $(".alert").slideUp(1000);
+            });
+        });
+    </script>
 
 </body>
 

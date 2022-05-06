@@ -98,26 +98,28 @@
 		$last_name = strtolower($last_name);
 		$password = $last_name;
 
-		//query bus and its route
-		$find_bus_stmt = $dbconnect->prepare("SELECT tbl_bus.plate_no, tbl_route.origin, tbl_route.destination FROM tbl_route, tbl_bus
-		WHERE tbl_bus.route = tbl_route.route_id AND tbl_bus.bus_id = :bus_id");
-		$find_bus_stmt->execute(["bus_id"=>$bus]);
-		$bus_detail =  $find_bus_stmt->fetch();
-
-		// message paramiters
-		$plate_no = $bus_detail['plate_no'];
-		$route = "$bus_detail[origin] - $bus_detail[destination]";
-		$first_name = ucfirst($first_name);
-		$last_name = ucfirst($last_name);
-		$fullname = "$first_name $last_name ";
-		$body = "Dear $fullname your route is $route username: $username, password: $password url: https://luggiestar.kvm.co.tz";
+		
 		//validate phone number
-		if(!preg_match("/^255+[67]+[12345678]+[1-9]/", $phone)) {
+		if(!preg_match("/^255+[67]+[12345678]+[1-9]/", $phone)) {//query bus and its route
 			$_SESSION['error'] = "Required format is 255762506012 must start with 255 the 7 0r six";
 			header("location:driver.php");
 		}
 
 		else {
+
+			$find_bus_stmt = $dbconnect->prepare("SELECT tbl_bus.plate_no, tbl_route.origin, tbl_route.destination FROM tbl_route, tbl_bus
+			WHERE tbl_bus.route = tbl_route.route_id AND tbl_bus.bus_id = :bus_id");
+			$find_bus_stmt->execute(["bus_id"=>$bus]);
+			$bus_detail =  $find_bus_stmt->fetch();
+
+			// message paramiters
+			$plate_no = $bus_detail['plate_no'];
+			$route = "$bus_detail[origin] - $bus_detail[destination]";
+			$first_name = ucfirst($first_name);
+			$last_name = ucfirst($last_name);
+			$fullname = "$first_name $last_name ";
+			$body = "Dear $fullname your Registration successfully saved \n your route is $route \n username: $username, \n password: $password \n url: https://luggiestar.kvm.co.tz";
+
 			$password = password_hash($password, PASSWORD_DEFAULT);
 
 			//array that hold user data
@@ -161,11 +163,15 @@
 						//set bus as taken
 						$update_bus = $dbconnect->prepare("UPDATE tbl_bus SET taken=1 WHERE bus_id = :bus_id");
 						$update_bus->execute(['bus_id'=>$bus]);
+
+						//notify driver
 						newDriverNotification($phone, $body);
+
 						//redirct user to drivers pages
-						// $_SESSION['success'] = "Account for $first_name $last_name created successfully";
-						$_SESSION['success'] = $body;
-						// header("location:driver.php");
+						$_SESSION['success'] = "Account for $first_name $last_name created successfully";
+						
+						// $_SESSION['success'] = $body;
+						header("location:driver.php");
 					}
 
 					else {

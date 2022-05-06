@@ -7,7 +7,8 @@
     $ticket_sql = "SELECT tbl_user.fname, tbl_user.lname, tbl_user.phone, tbl_ticket.*, tbl_route.* FROM tbl_route, tbl_ticket, tbl_user 
         WHERE tbl_ticket.passanger = tbl_user.id 
         AND tbl_ticket.route = tbl_route.route_id 
-        AND tbl_ticket.passanger = :user";
+        AND tbl_ticket.passanger = :user
+        ORDER BY tbl_ticket.trip_time DESC";
 
     $ticket_query = $dbconnect->prepare($ticket_sql);
     $ticket_query->execute(['user'=>$_SESSION['UserID']]);

@@ -23,7 +23,7 @@
 
 		/* Time calculation */
 		$expire_time = strtotime($trip_time) + 60*60*2;//add two hour on time
-		$expire_time = date('H:i', $expire_time); 
+		$expire_time = date('H:i:s', $expire_time); 
 
 		$ticket_number = rand(999999, 9999999);
 		$passanger = $_SESSION['UserID'];
@@ -88,12 +88,12 @@
             echo "error";
         }
 
-		else if($date < $current_date) {
-			$error ="Sorry Date must be greater than Today or equal to today";
-            $_SESSION['error'] = $error;
-            header("location:booking-history.php");
-            echo "error";
-		}
+		// else if($date < $current_date) {
+		// 	$error ="Sorry Date must be greater than Today or equal to today";
+        //     $_SESSION['error'] = $error;
+        //     header("location:booking-history.php");
+        //     echo "error";
+		// }
 
 		else {
 

@@ -16,4 +16,5 @@
     $free_buses_query->execute();
     $free_buses_list = $free_buses_query->fetchAll(PDO::FETCH_ASSOC);
     $count_free_buses = $free_buses_query->rowCount(); 
+
 ?>

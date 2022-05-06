@@ -90,6 +90,12 @@
 			echo 'phone and username';
 		}
 
+		//validate phone number
+		else if(!preg_match("/^255+[67]+[12345678]+[1-9]/", $phone)) {//query bus and its route
+			$_SESSION['error'] = "Required format is 255762506012 must start with 255 the 7 0r six";
+			header("location:driver.php");
+		}
+
 		else {
 			$password = password_hash($password1, PASSWORD_DEFAULT);
 

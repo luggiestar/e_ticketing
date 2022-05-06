@@ -49,6 +49,9 @@
             margin-bottom: 9px;
             border-left: 3px solid red;
         }
+        a:hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 

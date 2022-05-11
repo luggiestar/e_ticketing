@@ -2,6 +2,13 @@
 <?php include('includes/sidebar.php'); ?>
 <?php include('manager_admin_access.php') ?>
 <?php include('views/route-view.php'); ?>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+<style>
+    .select2-dropdown {
+ top: 22px !important;
+ left: 8px !important;
+}
+</style>
 <div class="main_container">
     <!-- Page Heading -->
     <div class="row animated--grow-in">
@@ -9,6 +16,8 @@
             <div class="card card-body">
                 <div class="d-sm-flex align-items-center justify-content-end mb-4">
                     <button class="d-none d-sm-inline-block btn btn-info btn-sm shadow-sm" data-toggle="modal" data-target="#newRoute">Add New Route <i class="fa fa-plus fa-sm"></i> 
+                    </button>
+                    <button class="d-none d-sm-inline-block btn btn-secondary btn-sm shadow-sm ml-2" data-toggle="modal" data-target="#newStation">Add New Station <i class="fa fa-plus fa-sm"></i> 
                     </button>
                 </div>
                 <?php include('includes/messages.php'); ?>
@@ -68,7 +77,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title text-white" id="user">Add New Driver</h5>
+                <h5 class="modal-title text-white" id="user">Add New Route</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="text-white">&times;</span>
                 </button>
@@ -98,3 +107,52 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="newStation" tabindex="-1" role="dialog" aria-labelledby="newStation" aria-hiden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="user">Add New Station</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+            </div>
+            <form action="station-logic.php" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-12 mt-2">
+                            <label>Station Name</label>
+                            <input type="text" name="station_name" class="form-control" placeholder="Station Name" required>
+                        </div>
+                        <div class="col-xl-12 mt-2">
+                            <label>Route</label>
+                            <select name="route" class="form-control">
+                                
+                                <?php foreach ($route_list as $route_item_2):?>
+                                    <option value=''>Select Route</option> 
+                                    <option value="<?php echo $route_item_2['route_id'] ?>">
+                                        <?php echo "$route_item_2[origin] - $route_item_2[destination]" ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="save_station" class="btn btn-info">Save Station</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script>
+ $("#selRoute").select2( {
+	placeholder: "Select Country",
+	// allowClear: true
+	} );
+</script>
+});
+</script>

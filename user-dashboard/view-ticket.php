@@ -20,7 +20,7 @@
         $now_time = date('H:i:s');
         $today_date = date('Y-m-d');
         $trip_date = $ticket_detail['trip_date'];
-        $expire_time = strtotime($ticket_detail['expire_time']);
+        $expire_time = $ticket_detail['expire_time'];
 
                                     
 	?>
@@ -72,12 +72,11 @@
 							<tr>
 								<th>Status</th>
 								<td>
-								   	<?php if($ticket_time <= $now_time && $ticket_time < $expire_time && $trip_date == $today_date): ?>
-                                        <span class="badge bg-success text-white" >Ticket Valid</span>
-                                
-                                    <?php else: ?>
-                                        <span class="badge bg-danger text-white" >Invalid</span>
-                                    <?php endif ?>
+								<?php if($ticket_time <= $now_time && $expire_time > $now_time && $trip_date == $today_date): ?>
+									<span class="badge bg-success text-white" >Ticket valid</span>
+								<?php else: ?>
+									<span class="badge bg-danger text-white" >Invalid</span>
+								<?php endif ?>
 								</td>
 							</tr>
 						</table>

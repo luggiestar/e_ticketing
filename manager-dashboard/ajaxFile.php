@@ -3,7 +3,7 @@
 include('../includes/config.php');
 
 if(isset($_POST["route_id"])){
-    //Get all state data
+    //Get all route data
 	$route_id= $_POST['route_id'];
     $query = "SELECT * FROM tbl_station WHERE route = '$route_id'";
 	$run_query = mysqli_query($conn, $query);

@@ -53,6 +53,9 @@
             margin-bottom: 9px;
             border-left: 3px solid red;
         }
+        .bg-info {
+            background-color: #258d9d !important;
+        }
     </style>
 </head>
 
@@ -62,7 +65,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav kvm-bg sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">

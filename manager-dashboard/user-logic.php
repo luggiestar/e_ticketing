@@ -66,7 +66,7 @@
 	else if(isset($_POST['register']) && $user_profile['type']=="admin") {
 
 		$first_name = clean_input($_POST['first_name']);
-		$last_name = clean_input($_POST['last_name']);
+		$last_name = $_POST['last_name'];
 		$phone = clean_input($_POST['phone']);
 		$sex = clean_input($_POST['sex']);
 		$type = "manager";
@@ -80,6 +80,7 @@
 			header("location:driver.php");
 		}
 		else {
+			$last_name = strtolower($last_name);
 			$password = password_hash($last_name, PASSWORD_DEFAULT);
 
 			$data = [
@@ -102,19 +103,19 @@
 				
 				if($stmt) {
 					$_SESSION['success'] = "Account for $first_name $last_name created successfully";
-					header("location:user.php");
+					header("location:managers.php");
 				}
 
 				else {
 					$error ="Something Went wrong try again";
 					$_SESSION['error'] = $error;
-					header("location:user.php");
+					header("location:managers.php");
 				}
 			}
 
 			catch(Exception $e) {
 				$_SESSION['danger'] = "Invalid data phone number or username is already registred";
-				header("location:user.php");
+				header("location:managers.php");
 				echo 'phone and username';
 			}
 		}

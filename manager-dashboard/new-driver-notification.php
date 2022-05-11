@@ -6,7 +6,7 @@
         global $api_key, $secret_key;
         
         $postData = array(
-            'source_addr' => 'luggiestar',
+            'source_addr' => 'e-ticketing',
             'encoding'=>0,
             'schedule_time' => '',
             'message' => $body,

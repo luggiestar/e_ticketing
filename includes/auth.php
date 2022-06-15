@@ -59,13 +59,13 @@
 			}
 		} 
 
-				else {
-						$error ="Wrong username";
-						$_SESSION['error'] = $error;
+		else {
+			$error ="Wrong username";
+			$_SESSION['error'] = $error;
 						header("location:../index.php");
-				}
-
 			}
+
+		}
 	}
 
 	/*For registration*/

@@ -9,7 +9,7 @@
 	date_default_timezone_set("Africa/Dar_es_Salaam");
 
 	/* online */
-	/*
+	/*X15!:3si4tQJEy
 	define('DB_HOST', 'localhost');
 	define('DB_USER', 'kvmcotz_kvmcotz');
 	define('DB_PASS', 'sinanywilaluggie');

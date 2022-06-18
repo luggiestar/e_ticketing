@@ -42,6 +42,11 @@
 
         
         /* qrcode */
+	if($ticket_time <= $now_time && $expire_time > $now_time && $trip_date == $today_date){
+			$status = 'Ticket valid';
+		}else{
+			$status = 'Invalid';
+		}
         
         $tempDir = "qrcodes/";
         $fullname = "$user_profile[fname] $user_profile[lname]";
@@ -53,6 +58,8 @@
 		$codeString .= "From: $starting to $ending" . "\n";
 		$codeString .= "Expired Time: $expire_time" . "\n";
 		$codeString .= "Trip Date: $date" . "\n";
+		$codeString .= "Status: $status" . "\n";
+
 
         $codeContents = $codeString;
         

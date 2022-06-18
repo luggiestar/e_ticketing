@@ -4,7 +4,7 @@
 
 <div class="main_container">
     <?php if($today_ticket_count > 0): ?>
-        <div id="data"></div>
+        <div id="data" class="row"></div>
     <?php else: ?>
         <div class="info">
             <p> <i class="fa fa-info-circle text-danger"></i> No data Available </p>

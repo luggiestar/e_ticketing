@@ -61,13 +61,7 @@
                                             </button> 
                                         <?php endif ?>
                                         <input hidden type="number" name="bus" value="<?php echo $driver_item['bus'] ?>">
-                                        <button class="btn btn-success btn-sm">
-                                            <b><i class="fas fa-pencil-alt fa-sm"></i></b>
-                                        </button>
-                                        <button type="submit" name="delete" class="text-white btn btn-danger btn-sm"><i class="fas fa-trash fa-sm text-white"></i>
-                                        </button> 
                                     </form>
-                                   
                                 </td>
                             </tr>
                             <?php endforeach ?>

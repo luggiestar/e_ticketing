@@ -16,12 +16,18 @@
         AND tbl_driver.bus = :bus_id";
         $driver_stmt = $dbconnect->prepare($driver_sql);
         $driver_stmt->execute(["bus_id"=>$bus_id]);
-		$driver_detail =  $driver_stmt->fetch();
+		$driver_detail =  $driver_stmt->fetch(PDO::FETCH_ASSOC);
+
+        $route_sql = "SELECT origin, destination FROM tbl_route WHERE route_id  = :route_id ";
+        $route_stmt = $dbconnect->prepare($route_sql);
+        $route_stmt->execute(["route_id"=>$route]);
+        $route_detail =  $route_stmt->fetch(PDO::FETCH_ASSOC);
 
         //message paramiters
-        $fullname = "$driver_detail[fname] $driver_detail[lname] ";
+        $fullname = $driver_detail['fname']." ".$driver_detail['lname'];
+        $route_name = $route_detail['origin']."-".$route_detail['destination'];
         $phone = $driver_detail['phone'];
-        $body = "Dear $fullname Your Route has Changed please \n refresh your browser to see new route";
+        $body = "Dear $fullname Your Route has Changed please to $route_name";
 
         //update bus route
 	    $change_route = $dbconnect->prepare("UPDATE tbl_bus SET route = :route WHERE bus_id=:bus_id");
@@ -30,7 +36,6 @@
 	    if ($change_route) {
             //notify driver
             newDriverNotification($phone, $body);
-            
 	        $_SESSION['success'] = "Successfully  $fullname route changed";
 	        header('location:ticket-manager.php');
 	    } 

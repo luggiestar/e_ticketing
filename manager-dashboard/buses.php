@@ -32,15 +32,41 @@
                                 <td><?php echo $buses_item['capacity'] ?></td>
                                 <td><?php echo "$buses_item[origin] - $buses_item[destination]" ?></td>
                                 <td>
-                                    <form method="POST" action="buses-logic.php">
-                                        <input hidden type="number" name="bus_id" value="<?php echo $buses_item['bus_id'] ?>">
-                                       
-                                        <button type="submit" name="delete" class="text-white btn btn-danger btn-sm"><i class="fas fa-trash fa-sm text-white"></i>
-                                        </button> 
-                                    </form>
-                                   
+                                    <a type="buton" class="" data-toggle="modal" data-target="#bus<?php echo $buses_item['bus_id']?>">
+                                        <i class="fas fa-edit fa-sm text-success"></i>
+                                    </a> 
                                 </td>
                             </tr>
+                            <div class="modal fade" id="bus<?php echo $buses_item['bus_id']?>">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-info">
+                                            <h5 class="text-white"><?php echo "$buses_item[origin] - $buses_item[destination]" ?> 
+                                            <strong>(<?php echo $buses_item['plate_no'] ?>)</strong></h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="change-bus-route.php">
+                                                <div class="form-group">
+                                                    <input hidden type="number" name="bus_id" value="<?php echo $buses_item['bus_id'] ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <select class="form-control" name="route" required>
+                                                        <option value="">---Select Route---</option>
+                                                        <?php foreach ($route_list as $route_list_1):?>
+                                                            <option value="<?php echo $route_list_1['route_id'] ?>">
+                                                                <?php echo "$route_list_1[origin] - $route_list_1[destination]" ?>
+                                                            </option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" name="change_route" class="text-white btn btn-info ">
+                                                    Save Changes
+                                                </button> 
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <?php endforeach ?>
                         </tbody>
                     </table>

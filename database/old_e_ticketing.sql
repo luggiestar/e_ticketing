@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 18, 2022 at 09:11 AM
+-- Generation Time: Mar 30, 2022 at 04:27 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -40,8 +40,7 @@ CREATE TABLE `tbl_bus` (
 --
 
 INSERT INTO `tbl_bus` (`bus_id`, `plate_no`, `capacity`, `route`, `taken`) VALUES
-(1, '1234', 3, 2, 1),
-(5, 'T 123 ABC', 12, 5, 0);
+(1, '1234', 3, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -83,7 +82,7 @@ CREATE TABLE `tbl_driver` (
 
 INSERT INTO `tbl_driver` (`driver_id`, `licence_no`, `bus`, `user`) VALUES
 (1, '123432345j8', NULL, 17),
-(3, 'hf64738hfj7r8', 5, 26);
+(3, 'hf64738hfj7r8', 1, 26);
 
 -- --------------------------------------------------------
 
@@ -105,8 +104,7 @@ CREATE TABLE `tbl_route` (
 
 INSERT INTO `tbl_route` (`route_id`, `origin`, `destination`, `price`, `active`) VALUES
 (1, 'ubungo', 'kivukoni', 650, 1),
-(2, 'kimara', 'mlimani', 650, 1),
-(5, 'mm', 'nn', 19900, 1);
+(2, 'kimara', 'mlimani', 650, 0);
 
 -- --------------------------------------------------------
 
@@ -127,9 +125,8 @@ CREATE TABLE `tbl_station` (
 INSERT INTO `tbl_station` (`station_id`, `station_name`, `route`) VALUES
 (1, 'manzese', 1),
 (2, 'kibaha', 1),
-(3, 'didi', 5),
-(4, 'hihi', 2),
-(5, 'mwakapuku', 5);
+(3, 'didi', 2),
+(4, 'hihi', 2);
 
 -- --------------------------------------------------------
 
@@ -158,11 +155,7 @@ INSERT INTO `tbl_ticket` (`ticket_id`, `ticket_number`, `starting_station`, `end
 (11, '8324829', 'manzese', 'kibaha', 1, 15, '2022-03-23', '17:43:00', '20:21:00', '005_file_e2c177fba000092c03893fc7d471129a.png'),
 (12, '3741147', 'manzese', 'kibaha', 1, 15, '2022-03-23', '20:49:00', '22:49:00', '005_file_87c86f021a2f3667be1395b2827dbf66.png'),
 (13, '3270156', 'manzese', 'kibaha', 1, 15, '2022-03-24', '08:59:00', '09:05:00', '005_file_a41fcc8fdba24aec59d3b0cbc864e0f4.png'),
-(14, '4493020', 'manzese', 'kibaha', 1, 15, '2022-03-25', '08:59:00', '10:59:00', '005_file_0b828c63999af4fef5c537b988e55f07.png'),
-(15, '7766287', 'manzese', 'kibaha', 1, 27, '2022-05-11', '21:16:22', '23:16:22', '005_file_7f988638d5f93202b3fde9ed49229c3c.png'),
-(16, '4920068', 'manzese', 'kibaha', 1, 1, '2022-06-15', '19:43:43', '21:43:43', '005_file_bc273cfc5daa8153f5ee29ee35c45086.png'),
-(17, '9912701', 'manzese', 'kibaha', 1, 15, '2022-06-18', '09:00:44', '11:00:44', '005_file_557172d587a9aede8dbcb043fd86c501.png'),
-(18, '6542285', 'didi', 'mwakapuku', 5, 15, '2022-06-18', '09:33:38', '11:33:38', '005_file_abc5323b76f0efa020f07ab8e1977bc7.png');
+(14, '4493020', 'manzese', 'kibaha', 1, 15, '2022-03-25', '08:59:00', '10:59:00', '005_file_0b828c63999af4fef5c537b988e55f07.png');
 
 -- --------------------------------------------------------
 
@@ -191,16 +184,13 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id`, `fname`, `lname`, `phone`, `sex`, `region`, `district`, `address`, `type`, `username`, `is_active`, `password`, `created_at`) VALUES
-(1, 'mwakarundwa', 'Ehgets', 762506015, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'admin', 'test', 1, '$2y$10$Hdf448zmL3MRBfqVixCrEe9qcH80pCKh7ItJ5Rhw5NtpDBlhO14SC', '2022-03-03 16:11:23'),
-(15, 'mwakarundwa', 'Ehgets', 932506012, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'passenger', 'gets', 1, '$2y$10$lo/jRGgSgpR7W9IbCeZUROw1xjn2KRqFf.lPYdzsJ07o9ofghOAmm', '2022-03-22 15:18:22'),
-(17, 'mwakarundwa', 'Ehgets', 982506012, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'driver', 'brigh', 1, '$2y$10$cGO9/UafTQjiRcGeSi/icejX3Z0420/vzXH6bBIysqImgsZ5smwWq', '2022-03-22 15:22:41'),
-(18, 'mwakarundwa', 'Ehgets', 760506013, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'passenger', 'luggie', 1, '$2y$10$Iou./Qoq6up2bPTvR6QTfuu3DxXNc03Ajkl3AVQBwMOIo2EKCK9/G', '2022-03-24 08:37:49'),
-(20, 'mwakarundwa', 'Ehgets', 761546013, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'manager', 'mwakapukuDSD', 1, '$2y$10$YzjnIl.pVCo31TmdjpxdFOoRcQspfJLyM9lmHouS6ghI9U91DVhpq', '2022-03-24 08:42:45'),
-(21, 'mwakarundwa', 'Ehgets', 432506012, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'manager', 'driver', 1, '$2y$10$hjKFjeqHokkIEHhxhFc1DOmcGJehKdUD.1z1A9XWo3fPTVZcxUeBm', '2022-03-24 09:19:00'),
-(26, 'mwakarundwa', 'Ehgets', 255734876479, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'driver', 'gets2', 1, '$2y$10$dIoLAVN.mbc30gHp4ki/iu7t.Fsq4H/MdjYHqbSUnL7dMxLeVRPQe', '2022-03-24 10:30:43'),
-(27, 'mwakarundwa', 'Ehgets', 255788999888, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'passenger', 'test2', 1, '$2y$10$89a3d03aZf2NOivF3W8WKO3eSjDbjBsmGG0NmiidGJsSKlgZpd9Zu', '2022-05-11 17:03:04'),
-(29, 'mwakarundwa', 'Ehgets', 255688999888, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'manager', 'test3', 1, '$2y$10$8mm820dIscwyu64Tmyy/deiOJDdPlzK3p7Xt1.k8Lg6DoKXf9hbra', '2022-05-11 17:19:53'),
-(31, 'mwakarundwa', 'Ehgets', 255687999888, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'passenger', 'matata', 1, '$2y$10$df1CnmTCdaT1IlR9IuJX4utX8yRMwdGpwmGEGle8QbdFkbG11/al2', '2022-05-11 19:03:11');
+(1, 'mwakarundwa', 'GEORGE', 762506012, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'manager', 'test', 1, '$2y$10$Hdf448zmL3MRBfqVixCrEe9qcH80pCKh7ItJ5Rhw5NtpDBlhO14SC', '2022-03-03 16:11:23'),
+(15, 'mwakarundwa', 'GEORGE', 932506012, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'passenger', 'gets', 1, '$2y$10$lo/jRGgSgpR7W9IbCeZUROw1xjn2KRqFf.lPYdzsJ07o9ofghOAmm', '2022-03-22 15:18:22'),
+(17, 'mwakarundwa', 'GEORGE', 982506012, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'driver', 'brigh', 1, '$2y$10$cGO9/UafTQjiRcGeSi/icejX3Z0420/vzXH6bBIysqImgsZ5smwWq', '2022-03-22 15:22:41'),
+(18, 'mwakarundwa', 'GEORGE', 760506012, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'passenger', 'luggie', 1, '$2y$10$Iou./Qoq6up2bPTvR6QTfuu3DxXNc03Ajkl3AVQBwMOIo2EKCK9/G', '2022-03-24 08:37:49'),
+(20, 'mwakarundwa', 'GEORGE', 761546013, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'manager', 'mwakapukuDSD', 1, '$2y$10$YzjnIl.pVCo31TmdjpxdFOoRcQspfJLyM9lmHouS6ghI9U91DVhpq', '2022-03-24 08:42:45'),
+(21, 'mwakarundwa', 'GEORGE', 432506012, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'manager', 'driver', 1, '$2y$10$hjKFjeqHokkIEHhxhFc1DOmcGJehKdUD.1z1A9XWo3fPTVZcxUeBm', '2022-03-24 09:19:00'),
+(26, 'mwakarundwa', 'GEORGE', 742706013, 'F', 'Mbeya', 'Mbeyaad', 'P.O.Box 972', 'driver', 'gets2', 1, '$2y$10$dIoLAVN.mbc30gHp4ki/iu7t.Fsq4H/MdjYHqbSUnL7dMxLeVRPQe', '2022-03-24 10:30:43');
 
 -- --------------------------------------------------------
 
@@ -221,9 +211,7 @@ CREATE TABLE `tbl_wallet` (
 --
 
 INSERT INTO `tbl_wallet` (`wallet_id`, `balance`, `wallet_number`, `passenger`, `last_update`) VALUES
-(5, 99450, 667139, 15, '2022-03-24 07:04:04'),
-(6, 333488, 334138, 27, '2022-05-11 18:15:46'),
-(7, 1232683, 749348, 1, '2022-06-15 16:43:22');
+(5, 0, 667139, 15, '2022-03-24 07:04:04');
 
 --
 -- Indexes for dumped tables
@@ -297,7 +285,7 @@ ALTER TABLE `tbl_wallet`
 -- AUTO_INCREMENT for table `tbl_bus`
 --
 ALTER TABLE `tbl_bus`
-  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_comment`
@@ -315,31 +303,31 @@ ALTER TABLE `tbl_driver`
 -- AUTO_INCREMENT for table `tbl_route`
 --
 ALTER TABLE `tbl_route`
-  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_station`
 --
 ALTER TABLE `tbl_station`
-  MODIFY `station_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `station_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_ticket`
 --
 ALTER TABLE `tbl_ticket`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_wallet`
 --
 ALTER TABLE `tbl_wallet`
-  MODIFY `wallet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `wallet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
